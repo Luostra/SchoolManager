@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagerBackend.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace SchoolManagerBackend.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -26,7 +28,7 @@ namespace SchoolManagerBackend.Data
 
             // Уникальность Username и Email
             modelBuilder.Entity<User>()
-                .HasIndex(u => u.Username)
+                .HasIndex(u => u.UserName)
                 .IsUnique();
 
             modelBuilder.Entity<User>()
